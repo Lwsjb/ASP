@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<meta name="description" content="ASP整合包 · 安卓版 GTA San Andreas 警察模组整合包官方信息与下载页面。">
+<title>ASP整合包 · 官方下载站</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#090b10;--bg2:#0e1118;--card:#141821;--card2:#181c26;
+  --border:#252b39;--pink:#d63384;--purple:#8b5cf6;
+  --text:#edf0f7;--sub:#949cab;--dim:#60697a;--danger:#ff6262;
+  --max:1200px;--radius:16px;
+}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden}
+button,a{font:inherit}
+button{cursor:pointer}
+img{max-width:100%}
+
+.navbar{position:sticky;top:0;z-index:1000;background:rgba(9,11,16,.82);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(37,43,57,.85)}
+.nav-inner{max-width:var(--max);height:66px;margin:auto;padding:0 24px;display:flex;align-items:center;gap:24px}
+.nav-brand{font-size:18px;font-weight:900;white-space:nowrap;color:#fff;letter-spacing:.2px}
+.nav-brand span{background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav-menu{flex:1;display:flex;justify-content:center;gap:28px}
+.nav-menu a{position:relative;color:var(--sub);text-decoration:none;font-size:14px;font-weight:650;padding:5px 0;transition:.25s}
+.nav-menu a:after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:.3s}
+.nav-menu a:hover{color:#fff}.nav-menu a:hover:after{width:100%}
+.nav-download,.btn-primary,.download-box button{border:0;color:#fff;background:linear-gradient(135deg,var(--pink),#9333ea);box-shadow:0 0 28px rgba(214,51,132,.28);transition:.25s}
+.nav-download{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:750;white-space:nowrap}
+.nav-download:hover,.btn-primary:hover,.download-box button:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(214,51,132,.55)}
+
+.hero{max-width:var(--max);margin:auto;padding:72px 24px 64px;display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+.hero-text{animation:fadeUp .75s ease both}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;color:#c7ccd7;font-size:12px;font-weight:750;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px}
+.hero-kicker i{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 14px var(--pink)}
+.hero h1{font-size:58px;line-height:1.02;letter-spacing:-2.5px;color:#fff;font-weight:950;margin-bottom:18px}
+.hero h1 span{display:block;background:linear-gradient(135deg,#fff 0%,#d63384 55%,#8b5cf6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{max-width:480px;color:var(--sub);font-size:16px;margin-bottom:30px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-primary{padding:14px 30px;border-radius:10px;font-size:15px;font-weight:800}
+.btn-ghost{padding:13px 27px;border-radius:10px;color:var(--text);background:transparent;border:1px solid var(--border);font-size:15px;font-weight:700;transition:.25s}
+.btn-ghost:hover{border-color:var(--pink);color:#fff;transform:translateY(-2px)}
+.hero-visual{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,#171b25,#0c0f15);box-shadow:0 24px 70px rgba(0,0,0,.28);animation:fadeUp .9s .1s ease both}
+.hero-visual:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.78)),radial-gradient(circle at 20% 20%,rgba(139,92,246,.2),transparent 50%);z-index:2;pointer-events:none}
+.hero-visual img.hero-bg{width:100%;height:100%;object-fit:cover;display:block}
+.hero-overlay{position:absolute;z-index:3;left:22px;right:22px;bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:15px}
+.hero-overlay strong{font-size:18px;color:#fff;display:block}
+.hero-overlay small{display:block;color:#b7bdc9;font-size:12px;margin-top:2px}
+.hero-avatar{width:56px;height:56px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,.18);flex-shrink:0;background:#11151d}
+.hero-badge{padding:8px 12px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.35);backdrop-filter:blur(10px);border-radius:8px;color:#fff;font-size:11px;font-weight:750;white-space:nowrap;transition:.25s}
+.hero-badge:hover{background:rgba(214,51,132,.65);border-color:rgba(214,51,132,.8);transform:translateY(-2px)}
+
+.section,.download-banner{max-width:var(--max);margin:auto;padding-left:24px;padding-right:24px;opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease}
+.section{padding-top:50px;padding-bottom:50px}.section.visible,.download-banner.visible{opacity:1;transform:none}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.section-head h2{font-size:26px;font-weight:850;color:#fff}.tag{font-size:11px;color:var(--pink);font-weight:800;letter-spacing:2px;text-transform:uppercase}
+
+.slider{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:18px;background:#07090d;box-shadow:0 20px 50px rgba(0,0,0,.2);touch-action:pan-y}
+.slider-track{display:flex;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.slider-track img{width:100%;height:min(560px,62vw);min-height:260px;flex:0 0 100%;display:block;object-fit:cover;background:#11151d}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.52);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:27px;line-height:1;display:flex;align-items:center;justify-content:center;transition:.25s;z-index:4}
+.slider-btn:hover{background:rgba(214,51,132,.78);transform:translateY(-50%) scale(1.07)}.slider-btn.prev{left:15px}.slider-btn.next{right:15px}
+.slider-dots{position:absolute;z-index:4;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.slider-dots button{width:7px;height:7px;padding:0;border:0;border-radius:10px;background:rgba(255,255,255,.4);transition:.3s}.slider-dots button.active{width:20px;background:#fff}
+.slider-count{position:absolute;z-index:4;right:15px;top:14px;padding:5px 9px;border-radius:7px;background:rgba(0,0,0,.5);color:#fff;font-size:11px;backdrop-filter:blur(8px)}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:46px}
+.info-block h3{display:flex;align-items:center;gap:9px;font-size:16px;color:#fff;margin-bottom:13px}.info-block h3:before{content:"";width:4px;height:17px;border-radius:3px;background:linear-gradient(var(--pink),var(--purple))}
+.info-table{font-size:14px}.info-table .row{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid #1b202b}.info-table .row:last-child{border-bottom:0}.info-table .k{color:var(--sub)}.info-table .v{color:var(--text);font-weight:650;text-align:right}
+.info-note{margin-top:12px;padding:10px 12px;border-radius:8px;background:#10131a;color:var(--dim);font-size:12px}
+.list-item{display:flex;align-items:center;gap:15px;padding:15px 8px;border-bottom:1px solid #1b202b;border-radius:8px;cursor:pointer;transition:.25s}.list-item:last-child{border-bottom:0}.list-item:hover{background:rgba(214,51,132,.045);padding-left:14px}
+.list-item .num{min-width:34px;color:var(--pink);font:800 12px monospace}.list-item .txt{flex:1;color:var(--text);font-size:14px;font-weight:650}.list-item .desc{display:block;color:var(--dim);font-size:11px;font-weight:400;margin-top:2px}.list-item .arrow{color:var(--dim);font-size:20px;transition:.25s}.list-item:hover .arrow{color:var(--pink);transform:translateX(4px)}
+
+.author-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.author-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;align-items:center;gap:15px;transition:.3s}.author-card:hover{border-color:rgba(214,51,132,.65);transform:translateY(-4px);box-shadow:0 15px 35px rgba(0,0,0,.2)}
+.author-avatar{width:54px;height:54px;flex:0 0 54px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--pink),var(--purple))}
+.author-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.author-info h4{font-size:14px;color:#fff;margin-bottom:3px}.author-info p{font-size:12.5px;color:var(--sub)}.author-info a{color:#e35a9d;text-decoration:none}.author-info a:hover{text-decoration:underline}
+.thanks-note{margin-top:18px;padding:16px 18px;border-left:3px solid var(--purple);border-radius:8px;background:var(--card);font-size:13px;color:var(--sub)}
+
+.download-banner{padding-top:10px;padding-bottom:65px}.download-box{position:relative;overflow:hidden;text-align:center;padding:48px 24px;border-radius:20px;border:1px solid var(--border);background:linear-gradient(135deg,#171027,#211525);box-shadow:0 20px 60px rgba(0,0,0,.18)}
+.download-box:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(214,51,132,.25),transparent 60%);pointer-events:none}.download-box>*{position:relative}.download-box h2{font-size:28px;font-weight:850;color:#fff;margin-bottom:8px}.download-box p{color:var(--sub);font-size:13px;margin-bottom:24px}.download-box button{padding:15px 40px;border-radius:11px;font-size:16px;font-weight:800}
+
+.footer{border-top:1px solid var(--border);background:var(--bg2);padding:48px 24px 28px}.footer-inner{max-width:var(--max);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;padding-bottom:28px;border-bottom:1px solid var(--border)}.footer-col h5{font-size:14px;color:#fff;margin-bottom:13px}.footer-col p,.footer-col a{display:block;font-size:12.5px;color:var(--sub);text-decoration:none;margin-bottom:8px;transition:.2s}.footer-col a:hover{color:#fff;transform:translateX(3px)}.footer-bottom{max-width:var(--max);margin:20px auto 0;text-align:center;color:var(--dim);font-size:11px;letter-spacing:1px}
+
+.modal{display:none;position:fixed;inset:0;z-index:2000;padding:20px;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);align-items:center;justify-content:center}.modal.show{display:flex}.modal-box{width:min(500px,100%);max-height:82vh;overflow:auto;padding:25px;background:#171b25;border:1px solid var(--border);border-radius:16px;animation:popIn .3s ease}.modal-box h3{font-size:17px;color:#fff;margin-bottom:15px;padding-left:10px;border-left:3px solid var(--pink)}.modal-box p{font-size:13.5px;color:#abb3c1;margin-bottom:10px}.modal-box p b{color:#fff}.modal-close{width:100%;margin-top:12px;padding:11px;border:0;border-radius:8px;background:#252b39;color:#fff;transition:.2s}.modal-close:hover{background:#303748}
+
+.warn-modal{display:none;position:fixed;inset:0;z-index:2200;padding:20px;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);align-items:center;justify-content:center}.warn-modal.show{display:flex}
+.warn-box{position:relative;width:min(540px,100%);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;background:#171b25;border:1px solid var(--border);border-radius:17px;animation:popIn .32s ease}.warn-header{padding:19px 22px;border-bottom:1px solid var(--border);font-size:16px;font-weight:850;color:#ff6868}.warn-close{position:absolute;right:12px;top:11px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.06);color:#8f97a5;font-size:22px}.warn-close:hover{background:rgba(214,51,132,.25);color:#fff}.warn-body{padding:21px 22px;overflow:auto;color:#b8c0cf;font-size:13.5px;line-height:1.85}.warn-body p{margin-bottom:11px}.warn-body a{color:#e45c9f;text-decoration:none}.warn-body a:hover{text-decoration:underline}.warn-body .big{font-size:15px;color:#fff;font-weight:750}.warn-body .highlight{color:var(--danger);font-weight:750}.rule-list{margin:8px 0 14px;padding-left:20px}.rule-list li{margin:5px 0}.contact-box{display:none;margin-top:14px;padding:13px;border-radius:9px;background:#0f1218}.contact-box code{display:block;color:#d8dce5;font-size:12px;word-break:break-all;margin-bottom:9px}.copy-btn{width:100%;padding:9px;border:0;border-radius:7px;background:var(--pink);color:#fff;font-size:13px}
+.warn-footer{padding:16px 22px;border-top:1px solid var(--border)}.agree-row{display:none;align-items:center;gap:9px;margin-bottom:11px;font-size:12.5px;color:#b8c0cf;user-select:none}.agree-row.show{display:flex}.agree-row input{width:18px;height:18px;accent-color:var(--pink);flex:0 0 18px}.agree-row label{cursor:pointer}.warn-download{width:100%;padding:13px;border:1px solid transparent;border-radius:9px;background:#2b3140;color:#70798b;font-size:14px;font-weight:750;transition:.25s}.warn-download.ready{background:linear-gradient(135deg,var(--pink),#9333ea);color:#fff;box-shadow:0 0 25px rgba(214,51,132,.35)}.warn-download.ready:hover{transform:translateY(-1px);box-shadow:0 0 35px rgba(214,51,132,.55)}
+.shake{animation:shake .45s ease;border-color:var(--danger)!important}
+.copy-tip{position:fixed;z-index:3000;left:50%;bottom:35px;transform:translateX(-50%);padding:9px 18px;border-radius:8px;background:#252b39;color:#fff;font-size:12px;opacity:0;pointer-events:none;transition:.25s}.copy-tip.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes popIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(4px)}}
+
+@media(max-width:900px){
+  .nav-menu{display:none}.hero{grid-template-columns:1fr;padding:46px 20px 42px;gap:30px}.hero h1{font-size:43px}.hero .sub{font-size:14px}.hero-visual{order:2}.section{padding-left:20px;padding-right:20px;padding-top:38px;padding-bottom:38px}.info-grid,.author-grid{grid-template-columns:1fr;gap:28px}.footer-inner{grid-template-columns:1fr 1fr;gap:28px}.download-banner{padding-left:20px;padding-right:20px}
+}
+@media(max-width:560px){
+  .nav-inner{height:60px;padding:0 16px}.nav-brand{font-size:16px}.nav-download{padding:7px 13px}.hero h1{font-size:35px;letter-spacing:-1.4px}.hero .sub{line-height:1.75}.hero-btns>*{flex:1;text-align:center}.hero-visual{border-radius:15px}.hero-overlay{left:15px;right:15px;bottom:15px;gap:10px}.hero-overlay strong{font-size:15px}.hero-avatar{width:46px;height:46px;border-radius:10px}.hero-badge{padding:6px 10px;font-size:10px}.slider{border-radius:13px}.slider-track img{height:68vw;min-height:220px}.slider-btn{width:38px;height:38px;font-size:23px}.slider-btn.prev{left:9px}.slider-btn.next{right:9px}.section-head h2{font-size:21px}.info-table .row{padding:10px 0}.footer-inner{grid-template-columns:1fr}.download-box{padding:36px 18px}.download-box h2{font-size:23px}.warn-box{max-height:92vh}.warn-body{padding:18px;font-size:13px}.warn-footer{padding:14px 18px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">ASP<span>整合包</span></div>
+    <div class="nav-menu">
+      <a href="#preview">预览</a>
+      <a href="#info">下载</a>
+      <a href="#content">模组</a>
+      <a href="#faq">常见问题</a>
+      <a href="#author">作者</a>
+    </div>
+    <button class="nav-download" onclick="scrollToDownload()">下载</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-kicker"><i></i> ASP MOBILE EDITION</div>
+    <h1>ASP<span>整合包</span></h1>
+    <p class="sub">专为安卓手机玩家打造，开箱即用，稳定兼容。涵盖现实执法车辆、现实人物、警笛与警灯效果。</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="scrollToDownload()">⬇ 立即下载</button>
+      <button class="btn-ghost" onclick="document.getElementById('content').scrollIntoView({behavior:'smooth'})">查看模组信息</button>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img class="hero-bg" src="1.jpg" alt="ASP整合包预览" onerror="this.style.display='none'">
+    <div class="hero-overlay">
+      <div style="display:flex;align-items:center;gap:12px;min-width:0;">
+        <img class="hero-avatar" src="ASP.jpg" alt="ASP" onerror="this.style.display='none'">
+        <div style="min-width:0;">
+          <strong>ASP 整合包</strong>
+          <small>GTA San Andreas · Mobile</small>
+        </div>
+      </div>
+      <div class="hero-badge" onclick="scrollToDownload()" style="cursor:pointer;">FREE DOWNLOAD</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="preview">
+  <div class="section-head"><h2>预览图</h2><span class="tag">Preview</span></div>
+  <div class="slider" id="slider">
+    <div class="slider-track" id="track">
+      <img src="1.jpg" alt="ASP整合包预览 1" loading="eager">
+      <img src="2.jpg" alt="ASP整合包预览 2" loading="lazy">
+      <img src="3.jpg" alt="ASP整合包预览 3" loading="lazy">
+      <img src="4.jpg" alt="ASP整合包预览 4" loading="lazy">
+      <img src="5.jpg" alt="ASP整合包预览 5" loading="lazy">
+      <img src="6.jpg" alt="ASP整合包预览 6" loading="lazy">
+      <img src="7.jpg" alt="ASP整合包预览 7" loading="lazy">
+      <img src="8.jpg" alt="ASP整合包预览 8" loading="lazy">
+    </div>
+    <button class="slider-btn prev" onclick="slide(-1)" aria-label="上一张">‹</button>
+    <button class="slider-btn next" onclick="slide(1)" aria-label="下一张">›</button>
+    <div class="slider-count" id="sliderCount">1 / 8</div>
+    <div class="slider-dots" id="dots"></div>
+  </div>
+</section>
+
+<section class="section" id="info">
+  <div class="section-head"><h2>下载与模组</h2><span class="tag">Download & Mods</span></div>
+  <div class="info-grid">
+    <div class="info-block">
+      <h3>下载信息</h3>
+      <div class="info-table">
+        <div class="row"><span class="k">文件大小</span><span class="v">以蓝奏云文件为准</span></div>
+        <div class="row"><span class="k">版本</span><span class="v">v1.0</span></div>
+        <div class="row"><span class="k">更新时间</span><span class="v">正式发布时更新</span></div>
+        <div class="row"><span class="k">适用系统</span><span class="v">Android 10+（原信息）</span></div>
+        <div class="row"><span class="k">是否需要 Root</span><span class="v">否</span></div>
+        <div class="row"><span class="k">网盘</span><span class="v">蓝奏云</span></div>
+      </div>
+      <div class="info-note">提示：兼容性和实际运行表现可能因 GTA SA 版本、设备及其他已安装模组而不同。</div>
+    </div>
+    <div class="info-block" id="content">
+      <h3>模组信息</h3>
+      <div class="list-item" onclick="openModal('m1')"><span class="num">01</span><span class="txt">画质与底包<span class="desc">基础环境与画面内容</span></span><span class="arrow">›</span></div>
+      <div class="list-item" onclick="openModal('m2')"><span class="num">02</span><span class="txt">车辆与人物<span class="desc">警车、人物与武器内容</span></span><span class="arrow">›</span></div>
+      <div class="list-item" onclick="openModal('m3')"><span class="num">03</span><span class="txt">系统与优化<span class="desc">警务系统、灯光、音效与优化</span></span><span class="arrow">›</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="section-head"><h2>常见问题</h2><span class="tag">FAQ</span></div>
+  <div class="info-block">
+    <div class="list-item" onclick="openModal('f1')"><span class="num">Q1</span><span class="txt">下载后怎么安装？</span><span class="arrow">›</span></div>
+    <div class="list-item" onclick="openModal('f2')"><span class="num">Q2</span><span class="txt">下载链接打不开怎么办？</span><span class="arrow">›</span></div>
+    <div class="list-item" onclick="openModal('f3')"><span class="num">Q3</span><span class="txt">可以二次修改吗？</span><span class="arrow">›</span></div>
+  </div>
+</section>
+
+<section class="section" id="author">
+  <div class="section-head"><h2>作者信息</h2><span class="tag">Credits</span></div>
+  <div class="author-grid">
+    <div class="author-card">
+      <div class="author-avatar"><img src="G1.jpg" alt="整合包作者" onerror="this.style.display='none'"></div>
+      <div class="author-info"><h4>整合包作者</h4><p><a href="https://b23.tv/tECAcfc" target="_blank" rel="noopener">流王星者_Streamer</a></p></div>
+    </div>
+    <div class="author-card">
+      <div class="author-avatar"><img src="G2.jpg" alt="人物模型制作" onerror="this.style.display='none'"></div>
+      <div class="author-info"><h4>人物模型制作</h4><p><a href="https://b23.tv/qfrW7ON" target="_blank" rel="noopener">JasonSmudge老琪</a></p></div>
+    </div>
+  </div>
+  <div class="thanks-note">特别感谢老琪制作原创人物模型，为本整合包提供人物内容支持。</div>
+</section>
+
+<section class="download-banner" id="final-download">
+  <div class="download-box">
+    <h2>准备好开始了吗？</h2>
+    <p>阅读下载声明并确认使用约定后，即可进入蓝奏云下载。</p>
+    <button onclick="openWarn()">⬇ 点击下载 ASP 整合包</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col"><h5>ASP整合包</h5><p>专为安卓手机玩家打造的 GTA SA 移动版整合包信息页。</p><p>本页面不以任何形式出售整合包。</p></div>
+    <div class="footer-col"><h5>导航</h5><a href="#preview">预览图</a><a href="#info">下载信息</a><a href="#content">模组信息</a><a href="#faq">常见问题</a></div>
+    <div class="footer-col"><h5>作者</h5><a href="https://b23.tv/tECAcfc" target="_blank" rel="noopener">流王星者_Streamer</a><a href="https://b23.tv/qfrW7ON" target="_blank" rel="noopener">JasonSmudge老琪</a></div>
+    <div class="footer-col"><h5>相关</h5><a href="javascript:void(0)" onclick="openDisclaimer()">免责声明</a><a href="javascript:void(0)" onclick="openReport()">举报倒卖</a></div>
+  </div>
+  <div class="footer-bottom">ASP · MOBILE EDITION · FREE SHARING</div>
+</footer>
+
+<div class="modal" id="m1"><div class="modal-box"><h3>画质与底包</h3><p>提供整合包所需的基础环境、画质内容与底包配置。</p><p>具体资源以当前发布版本实际包含的文件为准。</p><button class="modal-close" onclick="closeModal('m1')">关闭</button></div></div>
+<div class="modal" id="m2"><div class="modal-box"><h3>车辆与人物</h3><p><b>车辆内容：</b>2013 Dodge Charger、2015 Charger（含警灯条/无警灯条版本）、2020 Dodge Durango 民用转换版本、2015 Chevrolet Tahoe 等。</p><p><b>人物：</b>人物模型由 JasonSmudge老琪 制作。</p><p><b>其他：</b>包含现实风格美国警用武器等内容。</p><button class="modal-close" onclick="closeModal('m2')">关闭</button></div></div>
+<div class="modal" id="m3"><div class="modal-box"><h3>系统与优化</h3><p>包含警务执法系统、VSL 闪灯系统、安全带模拟、警笛与武器效果、修改版 HUD、人物动画以及相关优化内容。</p><button class="modal-close" onclick="closeModal('m3')">关闭</button></div></div>
+<div class="modal" id="f1"><div class="modal-box"><h3>下载后怎么安装？</h3><p>下载并解压整合包后，按照压缩包内的目录结构将文件放入对应的 GTA SA 游戏目录。</p><p>安卓设备可使用 MT Manager 等文件管理工具进行解压和文件操作。</p><p>不同 GTA SA 版本的目录结构可能存在差异，请以整合包实际说明为准。</p><button class="modal-close" onclick="closeModal('f1')">关闭</button></div></div>
+<div class="modal" id="f2"><div class="modal-box"><h3>下载链接打不开怎么办？</h3><p>蓝奏云偶尔可能出现网络、浏览器或临时访问异常。可以尝试刷新页面、更换浏览器或稍后重新访问。</p><p>如果链接长期失效，可通过作者主页联系作者反馈。</p><button class="modal-close" onclick="closeModal('f2')">关闭</button></div></div>
+<div class="modal" id="f3"><div class="modal-box"><h3>可以二次修改吗？</h3><p>原页面说明允许个人使用范围内进行修改，但不得用于倒卖或商业用途。</p><p>如果准备将修改内容用于自己的作品或公开发布，建议提前联系相关作者确认授权和资源来源要求。</p><button class="modal-close" onclick="closeModal('f3')">关闭</button></div></div>
+<div class="modal" id="disclaimer"><div class="modal-box"><h3>免责声明</h3><p>本整合包用于个人学习、交流与娱乐。原页面说明建议下载者在不再使用相关内容后删除。</p><p>除原创人物模型外，整合包中的其他资源存在互联网收集、整合、兼容与调试情况，相关资源权利归原作者或权利人所有。</p><p>本整合包免费分享，不代表对第三方资源拥有版权或商业授权。使用者应自行承担使用相关资源产生的风险。</p><button class="modal-close" onclick="closeModal('disclaimer')">关闭</button></div></div>
+<div class="modal" id="report"><div class="modal-box"><h3>举报倒卖</h3><p>如果发现有人收费售卖、冒充原创或二次打包出售本整合包，可以整理相关账号、截图及链接后联系作者反馈。</p><p><b>反馈主页：</b><a href="https://b23.tv/AtXUMm9" target="_blank" rel="noopener">https://b23.tv/AtXUMm9</a></p><button class="modal-close" onclick="closeModal('report')">关闭</button></div></div>
+
+<div class="warn-modal" id="warnModal">
+  <div class="warn-box">
+    <button class="warn-close" onclick="closeWarn()" aria-label="关闭">×</button>
+    <div class="warn-header">⚠️ 下载前请阅读声明</div>
+    <div class="warn-body">
+      <p>本整合包由<a href="https://b23.tv/tECAcfc" target="_blank" rel="noopener">流王星者_Streamer</a>与<a href="https://b23.tv/qfrW7ON" target="_blank" rel="noopener">JasonSmudge老琪</a>共同参与制作。</p>
+      <p>除原创人物模型外，其余资源存在互联网收集、整合、兼容与调试情况。</p>
+      <p class="big">本整合包免费分享，本页面不提供付费售卖。</p>
+      <p class="highlight">如果有人向你收费售卖，请不要购买，并可向作者反馈。</p>
+      <ul class="rule-list">
+        <li>禁止将本整合包用于倒卖、收费打包或冒充原创发布。</li>
+        <li>个人修改应限于个人使用范围，不得以此进行商业售卖。</li>
+        <li>使用第三方资源时，请同时遵守其原作者的授权与使用要求。</li>
+      </ul>
+      <p>发现疑似倒卖或违规发布，可通过作者主页反馈。</p>
+      <div class="contact-box" id="contactBox">
+        <code>https://b23.tv/AtXUMm9</code>
+        <button class="copy-btn" onclick="copyLink()">复制反馈链接</button>
+      </div>
+      <button class="btn-ghost" style="width:100%;padding:9px;margin-top:2px" onclick="showContact()">查看反馈方式</button>
+    </div>
+    <div class="warn-footer">
+      <div class="agree-row" id="agreeRow"><input type="checkbox" id="agreeCheck"><label for="agreeCheck">我已阅读上述声明，并同意遵守使用约定</label></div>
+      <button class="warn-download" id="warnDownloadBtn">请阅读声明 8s...</button>
+    </div>
+  </div>
+</div>
+
+<div class="warn-modal" id="finalModal">
+  <div class="warn-box">
+    <button class="warn-close" onclick="closeFinal()" aria-label="关闭">×</button>
+    <div class="warn-header">⚠️ 重要使用约定</div>
+    <div class="warn-body">
+      <p class="big">下载完整整合包文件后，该文件仅限本人自用！</p>
+      <p class="highlight">严禁二次分享！严禁二次分享！再说一遍：严禁二次分享！</p>
+      <p>一旦发现私自向外传播，将按照倒卖违规进行处理。</p>
+      <p>如果你看到有人私自转发、放出这个整合包，请第一时间<a href="https://b23.tv/AtXUMm9" target="_blank" rel="noopener">告知作者</a>，感谢大家的理解与配合。</p>
+    </div>
+    <div class="warn-footer">
+      <div class="agree-row" id="finalAgreeRow">
+        <input type="checkbox" id="finalCheck">
+        <label for="finalCheck">我已阅读并同意上述使用约定</label>
+      </div>
+      <button class="warn-download" id="finalDownloadBtn">请阅读约定 8s...</button>
+    </div>
+  </div>
+</div>
+<div class="copy-tip" id="copyTip">已复制反馈链接</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const DOWNLOAD_URL="https://wwbgu.lanzouu.com/irgfA4aca83i";
+  const CONTACT_URL="https://b23.tv/AtXUMm9";
+
+  const sections=document.querySelectorAll(".section,.download-banner");
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add("visible")});
+  },{threshold:.08});
+  sections.forEach(el=>observer.observe(el));
+
+  const track=document.getElementById("track");
+  const slider=document.getElementById("slider");
+  const dots=document.getElementById("dots");
+  const count=document.getElementById("sliderCount");
+  const total=track.children.length;
+  let current=0,timer=null,startX=0,dragging=false;
+
+  for(let i=0;i<total;i++){
+    const dot=document.createElement("button");
+    dot.type="button";dot.setAttribute("aria-label","第"+(i+1)+"张");
+    dot.onclick=()=>goTo(i,true);dots.appendChild(dot);
+  }
+  function render(){
+    track.style.transform="translateX(-"+(current*100)+"%)";
+    [...dots.children].forEach((d,i)=>d.classList.toggle("active",i===current));
+    count.textContent=(current+1)+" / "+total;
+  }
+  function goTo(index,user){
+    current=(index+total)%total;render();
+    if(user)restartAuto();
+  }
+  window.slide=function(dir){goTo(current+dir,true)};
+  function startAuto(){clearInterval(timer);timer=setInterval(()=>goTo(current+1,false),4500)}
+  function restartAuto(){startAuto()}
+  slider.addEventListener("mouseenter",()=>clearInterval(timer));
+  slider.addEventListener("mouseleave",startAuto);
+  slider.addEventListener("touchstart",e=>{startX=e.touches[0].clientX;dragging=true;clearInterval(timer)},{passive:true});
+  slider.addEventListener("touchend",e=>{
+    if(!dragging)return;dragging=false;
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>45)goTo(current+(dx<0?1:-1),true);else startAuto();
+  },{passive:true});
+  render();startAuto();
+
+  window.openModal=function(id){document.getElementById(id).classList.add("show")};
+  window.closeModal=function(id){document.getElementById(id).classList.remove("show")};
+  ["m1","m2","m3","f1","f2","f3","disclaimer","report"].forEach(id=>{
+    const el=document.getElementById(id);
+    el.addEventListener("click",e=>{if(e.target===el)closeModal(id)});
+  });
+  window.openDisclaimer=()=>openModal("disclaimer");
+  window.openReport=()=>openModal("report");
+
+  window.scrollToDownload=function(){document.getElementById("final-download").scrollIntoView({behavior:"smooth",block:"center"})};
+
+  const warnModal=document.getElementById("warnModal");
+  const agreeRow=document.getElementById("agreeRow");
+  const agreeCheck=document.getElementById("agreeCheck");
+  const warnBtn=document.getElementById("warnDownloadBtn");
+  let countdownDone=false,timer2=null;
+
+  window.openWarn=function(){
+    warnModal.classList.add("show");
+    agreeRow.classList.remove("show");
+    agreeCheck.checked=false;
+    warnBtn.classList.remove("ready");
+    countdownDone=false;
+    clearInterval(timer2);
+    let sec=8;
+    warnBtn.textContent="请阅读声明 "+sec+"s...";
+    timer2=setInterval(()=>{
+      sec--;
+      if(sec>0)warnBtn.textContent="请阅读声明 "+sec+"s...";
+      else{
+        clearInterval(timer2);countdownDone=true;agreeRow.classList.add("show");
+        warnBtn.textContent="请先勾选同意声明";
+      }
+    },1000);
+  };
+  window.closeWarn=function(){warnModal.classList.remove("show");clearInterval(timer2)};
+  warnModal.addEventListener("click",e=>{if(e.target===warnModal)closeWarn()});
+  agreeCheck.addEventListener("change",()=>{
+    if(!countdownDone)return;
+    const ok=agreeCheck.checked;
+    warnBtn.classList.toggle("ready",ok);
+    warnBtn.textContent=ok?"⬇ 确认并前往下载":"请先勾选同意声明";
+  });
+  warnBtn.addEventListener("click",()=>{
+    if(!countdownDone||!agreeCheck.checked){
+      warnBtn.classList.add("shake");
+      setTimeout(()=>warnBtn.classList.remove("shake"),500);
+      return;
+    }
+    closeWarn();
+    openFinal();
+  });
+
+  const finalModal=document.getElementById("finalModal");
+  const finalAgreeRow=document.getElementById("finalAgreeRow");
+  const finalCheck=document.getElementById("finalCheck");
+  const finalBtn=document.getElementById("finalDownloadBtn");
+  let finalCountdownDone=false,finalTimer=null;
+
+  window.openFinal=function(){
+    finalModal.classList.add("show");
+    finalAgreeRow.classList.remove("show");
+    finalCheck.checked=false;
+    finalBtn.classList.remove("ready");
+    finalCountdownDone=false;
+    clearInterval(finalTimer);
+    let sec=8;
+    finalBtn.textContent="请阅读约定 "+sec+"s...";
+    finalTimer=setInterval(()=>{
+      sec--;
+      if(sec>0) finalBtn.textContent="请阅读约定 "+sec+"s...";
+      else{
+        clearInterval(finalTimer);
+        finalCountdownDone=true;
+        finalAgreeRow.classList.add("show");
+        finalBtn.textContent="请先勾选同意使用约定";
+      }
+    },1000);
+  };
+  window.closeFinal=function(){
+    finalModal.classList.remove("show");
+    clearInterval(finalTimer);
+  };
+  finalModal.addEventListener("click",e=>{if(e.target===finalModal)closeFinal()});
+  finalCheck.addEventListener("change",()=>{
+    if(!finalCountdownDone)return;
+    const ok=finalCheck.checked;
+    finalBtn.classList.toggle("ready",ok);
+    finalBtn.textContent=ok?"⬇ 确认并前往蓝奏云下载":"请先勾选同意使用约定";
+  });
+  finalBtn.addEventListener("click",()=>{
+    if(!finalCountdownDone||!finalCheck.checked){
+      finalBtn.classList.add("shake");
+      setTimeout(()=>finalBtn.classList.remove("shake"),500);
+      return;
+    }
+    window.open(DOWNLOAD_URL,"_blank","noopener");
+    closeFinal();
+  });
+
+  window.showContact=function(){
+    const box=document.getElementById("contactBox");
+    box.style.display=box.style.display==="block"?"none":"block";
+  };
+  window.copyLink=function(){
+    const done=()=>{
+      const tip=document.getElementById("copyTip");tip.classList.add("show");
+      setTimeout(()=>tip.classList.remove("show"),1500);
+    };
+    if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(CONTACT_URL).then(done).catch(()=>fallbackCopy(done))}
+    else fallbackCopy(done);
+  };
+  function fallbackCopy(done){
+    const input=document.createElement("input");input.value=CONTACT_URL;document.body.appendChild(input);input.select();
+    try{document.execCommand("copy");}catch(e){}
+    document.body.removeChild(input);done();
+  }
+
+  document.addEventListener("keydown",e=>{
+    if(e.key!=="Escape")return;
+    closeWarn();
+    closeFinal();
+    document.querySelectorAll(".modal.show").forEach(el=>el.classList.remove("show"));
+  });
+})();
+</script>
+</body>
+</html>
